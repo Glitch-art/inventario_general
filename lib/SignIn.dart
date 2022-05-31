@@ -92,7 +92,6 @@ class SignInApp extends State<SignIn> {
                 lastDate: DateTime.now(),
                 dateFormat: DateFormat('dd/MM/yyyy'),
                 decoration: InputDecoration(
-
                   hintText: 'Digite su fecha de nacimiento',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
