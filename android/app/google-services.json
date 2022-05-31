@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "788267421451",
+    "project_id": "inventario-general-1414",
+    "storage_bucket": "inventario-general-1414.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788267421451:android:e392c9230b38a562f1dc0e",
+        "android_client_info": {
+          "package_name": "com.felipecarranza.inventario_general"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788267421451-0qiboe2cjue4ohqjp31hsmrmlt0st2em.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZaC_12axR0gc71rv38fnlaPfQAadarE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788267421451-0qiboe2cjue4ohqjp31hsmrmlt0st2em.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
