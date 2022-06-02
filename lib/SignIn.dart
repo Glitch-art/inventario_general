@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:intl/intl.dart';
@@ -9,21 +11,68 @@ class SignIn extends StatefulWidget {
   SignInApp createState() => SignInApp();
 }
 
-class SignInApp extends State<SignIn> {
+class SignInApp extends State<SignIn> with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+
   // TextEditingController controllerUsuario = TextEditingController();
   DateTime now = DateTime.now();
 
-  final controllerUsuario = TextEditingController();
-  final controllerDocumento = TextEditingController();
-  final controllerContrasena = TextEditingController();
+  final firebase = FirebaseFirestore.instance;
+
+  final controllerEmail = TextEditingController();
+  final controllerName = TextEditingController();
+  final controllerDocument = TextEditingController();
+  final controllerPassword = TextEditingController();
+
   late DateTime selectedData;
 
+  final snackBar_Good = const SnackBar(
+    content: Text('Registrado con éxito!'),
+    backgroundColor: Colors.green,
+  );
 
+  final snackBar_Error = const SnackBar(
+    content: Text('Registrado con éxito!'),
+    backgroundColor: Colors.red,
+  );
+
+  buttonSignIn() async {
+    Timestamp userBirth = Timestamp.fromDate(selectedData); //To TimeStamp
+
+    try {
+      await firebase.collection('Users').doc().set({
+        "email": controllerEmail.text,
+        "name": controllerName.text,
+        "document": controllerDocument.text,
+        "password": controllerPassword.text,
+        "user_birthday": userBirth,
+      });
+      if (kDebugMode) {
+        print('Email: ${controllerEmail.text}\n'
+            'Name: ${controllerName.text}\n'
+            'Document: ${controllerDocument.text}\n'
+            'Password: ${controllerPassword.text}\n'
+            'user_birthday: $selectedData\n'
+            'FechaActual: $now');
+      }
+      controllerEmail.clear();
+      controllerName.clear();
+      controllerDocument.clear();
+      controllerPassword.clear();
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar_Good);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+      ScaffoldMessenger.of(context).showSnackBar(snackBar_Error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     const TextField_EdgeInsets = EdgeInsets.only(left: 20, top: 10, right: 20);
-    String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registrarse'),
@@ -43,35 +92,48 @@ class SignInApp extends State<SignIn> {
                 ),
               ),
             ),
-            // TextField 'Usuario'
+            // TextField 'email'
             Padding(
               padding: TextField_EdgeInsets,
               child: TextField(
-                controller: controllerUsuario,
+                autofocus: true,
+                controller: controllerEmail,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    labelText: 'Usuario',
-                    hintText: 'Digite su Usuario'),
+                    labelText: 'Email',
+                    hintText: 'Escriba su Email'),
+              ),
+            ),
+            // TextField 'Name'
+            Padding(
+              padding: TextField_EdgeInsets,
+              child: TextField(
+                controller: controllerName,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: 'Nombre',
+                    hintText: 'Escriba su nombre completo'),
               ),
             ),
             // TextField 'Documento'
             Padding(
               padding: TextField_EdgeInsets,
               child: TextField(
-                controller: controllerDocumento,
+                controller: controllerDocument,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
                     labelText: 'Documento',
-                    hintText: 'Digite su Documento'),
+                    hintText: 'Digite su documento'),
               ),
             ),
             // TextField 'Contraseña'
             Padding(
               padding: TextField_EdgeInsets,
               child: TextField(
-                controller: controllerContrasena,
+                controller: controllerPassword,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
@@ -104,18 +166,7 @@ class SignInApp extends State<SignIn> {
               padding: const EdgeInsets.all(20),
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {
-                    print('Registrándose...');
-                    print('Usuario: ${controllerUsuario.text}\n'
-                        'Documento: ${controllerDocumento.text}\n'
-                        'Contraseña: ${controllerContrasena.text}\n'
-                        'FechaNacimiento: $selectedData\n'
-                        'FechaActual: $now\n'
-                        'FechaActualFormato: $formattedDate');
-                    controllerUsuario.clear();
-                    controllerDocumento.clear();
-                    controllerContrasena.clear();
-                  },
+                  onPressed: () => {buttonSignIn()},
                   child: const Text('Registrarse'),
                 ),
               ),

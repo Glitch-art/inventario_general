@@ -8,6 +8,8 @@ class LogIn extends StatefulWidget {
 }
 
 class LogInApp extends State<LogIn>{
+  // String formattedDate = DateFormat('dd/MM/yyyy').format(now);
+
   @override
   Widget build(BuildContext context) {
     const TextField_EdgeInsets = EdgeInsets.only(left: 20, top: 10, right: 20);
@@ -29,16 +31,16 @@ class LogInApp extends State<LogIn>{
                 ),
               ),
             ),
-            // TextField 'Usuario'
-            Padding(padding: TextField_EdgeInsets,
+            // TextField 'email'
+            Padding(
+              padding: TextField_EdgeInsets,
               child: TextField(
+                autofocus: true,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  labelText: 'Usuario',
-                  hintText: 'Digite su Usuario'
-                ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: 'Email',
+                    hintText: 'Escriba su Email'),
               ),
             ),
             // TextField 'Contraseña'
