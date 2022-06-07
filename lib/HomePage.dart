@@ -24,9 +24,21 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Imagen
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+              child: Center(
+                child: SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: Image.asset('images/checklist.png'),
+                  // Attribution: "https://www.flaticon.com/free-icons/checklist" Checklist icons created by Freepik - Flaticon
+                ),
+              ),
+            ),
             // Button 'LogIn'
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 25),
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {
@@ -34,13 +46,15 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => const LogIn()));
                   },
+                  style: TextButton.styleFrom(
+                  ),
                   child: const Text('Iniciar Sesión'),
                 ),
               ),
             ),
             // Button 'SignIn'
             Padding(
-              padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 10),
               child: Center(
                 child: ElevatedButton(
                   onPressed: () {

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
       ],
-      home: const HomePage(title: 'Home'),
+      home: const HomePage(title: 'Inventario General'),
     );
   }
 }

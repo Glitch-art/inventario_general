@@ -36,7 +36,7 @@ class SignInApp extends State<SignIn> with SingleTickerProviderStateMixin {
     backgroundColor: Colors.red,
   );
 
-  buttonSignIn() async {
+  void buttonSignIn() async {
     Timestamp userBirth = Timestamp.fromDate(selectedData); //To TimeStamp
 
     try {
@@ -139,6 +139,7 @@ class SignInApp extends State<SignIn> with SingleTickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(10)),
                     labelText: 'Contraseña',
                     hintText: 'Digite su Contraseña'),
+                obscureText: true,
               ),
             ),
             // TextField 'Fecha de Nacimiento'
